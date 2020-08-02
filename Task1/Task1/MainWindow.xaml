@@ -1,0 +1,176 @@
+﻿<Window x:Class="Task1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="400" Width="500" BorderThickness="1,1,1,1" ResizeMode="NoResize" Loaded="window_loaded" WindowStyle="None">
+    <Window.Effect>
+        <DropShadowEffect/>
+    </Window.Effect>
+    <DockPanel Cursor="Hand" >
+        <Grid x:Name="header" DockPanel.Dock="Top" Background="#FF7A4453" Height="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="469*"/>
+                <ColumnDefinition Width="31*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Foreground="White" FontSize="15" HorizontalAlignment="Left" Margin="201,7,0,0" FontFamily="Palatino Linotype">HONEYWELL</TextBlock>
+        </Grid>
+        <Grid x:Name="sideMenu" DockPanel.Dock="Left" Background="Beige" Width="120" HorizontalAlignment="Left" >
+            <StackPanel Background="WhiteSmoke">
+                
+                <Button HorizontalAlignment="Right" BorderThickness="0,0,0,0" Width="40" Height="40" Background="Transparent" PreviewMouseDown="menu_Clicked" AllowDrop="True">
+                    <Image  Source="C:\Users\sidak\OneDrive\Рабочий стол\18.png" Width="20" Height="20"/>
+                </Button>
+                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0,0,0,0" FontFamily="Constantia" FontWeight="Regular" >
+                    <ListViewItem x:Name="Calculator" BorderThickness="1,1,1,1" Margin="5,10,5,5" Selected="item_selected" >
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0" AllowDrop="True">
+                            <Image Source="C:\Users\sidak\OneDrive\Рабочий стол\12.png" Width="20" Height="20" HorizontalAlignment="Right"/>
+                            <TextBlock Margin="10,0,0,0" FontSize="13">Calculator</TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="Calendar" Margin="5,10,5,5" Selected="item_selected">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                            <Image Source="C:\Users\sidak\OneDrive\Рабочий стол\14.png" Width="20" Height="20" HorizontalAlignment="Right"/>
+                            <TextBlock Margin="10,0,0,0" FontSize="13">Calendar</TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="Converter" Margin="5,10,5,5" Selected="item_selected" >
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                            <Image Source="C:\Users\sidak\OneDrive\Рабочий стол\15.png" Width="20" Height="20" HorizontalAlignment="Right"/>
+                            <TextBlock Margin="10,0,0,0" FontSize="13">Converter</TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="AboutApp" Margin="5,10,5,5" Selected="item_selected">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                            <Image Source="C:\Users\sidak\OneDrive\Рабочий стол\16.png" Width="20" Height="20" HorizontalAlignment="Right"/>
+                            <TextBlock Margin="10,0,0,0" FontSize="13">About App</TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="leftSpace">
+            <Grid x:Name="designCalculator" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="textBlock1"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Background="White" UseLayoutRounding="False"></TextBlock>
+                <TextBlock x:Name="textBlock2" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Background="WhiteSmoke"></TextBlock>
+                <Button Grid.Row="3" Grid.Column="0" Click="Button_Click" Background="#FFC1909D" Foreground="White">1</Button>
+                <Button Grid.Row="3" Grid.Column="1" Click="Button_Click" Background="#FFC1909D" Foreground="White">2</Button>
+                <Button Grid.Row="3" Grid.Column="2" Click="Button_Click" Background="#FFC1909D" Foreground="White">3</Button>
+                <Button Grid.Row="4" Grid.Column="0" Click="Button_Click" Background="#FFC1909D" Foreground="White">4</Button>
+                <Button Grid.Row="4" Grid.Column="1" Click="Button_Click" Background="#FFC1909D" Foreground="White">5</Button>
+                <Button Grid.Row="4" Grid.Column="2" Click="Button_Click" Background="#FFC1909D" Foreground="White">6</Button>
+                <Button Grid.Row="5" Grid.Column="0" Click="Button_Click" Background="#FFC1909D" Foreground="White">7</Button>
+                <Button Grid.Row="5" Grid.Column="1" Click="Button_Click" Background="#FFC1909D" Foreground="White">8</Button>
+                <Button Grid.Row="5" Grid.Column="2" Click="Button_Click" Background="#FFC1909D" Foreground="White">9</Button>
+                <Button Grid.Row="6" Grid.Column="0" Click="Button_Click" Background="#FF7A4453" Foreground="White">,</Button>
+                <Button Grid.Row="6" Grid.Column="1" Click="Button_Click" Background="#FFC1909D" Foreground="White">0</Button>
+                <Button Grid.Row="2" Grid.Column="3" Click="Operation_Click" Background="#FF7A4453" Foreground="#FFFDFDFD">+</Button>
+                <Button Grid.Row="3" Grid.Column="4" Click="Operation_Click" Background="#FF7A4453" Foreground="White">-</Button>
+                <Button Grid.Row="4" Grid.Column="4" Click="Operation_Click" Background="#FF7A4453" Foreground="White">/</Button>
+                <Button Grid.Row="5" Grid.Column="4" Click="Operation_Click" Background="#FF7A4453" Foreground="White">*</Button>
+                <Button Grid.Row="6" Grid.Column="2" Click="Result_click"  Background="#FF7A4453" Foreground="White">=</Button>
+                <StackPanel Grid.Row="6" Grid.Column="3" Background="#FF7A4453">
+                    <RadioButton x:Name="intRadio" Foreground="White" Margin="10,10,0,0" IsChecked="True">Int</RadioButton>
+                    <RadioButton x:Name="doubleRadio" Foreground="White" Margin="10,0,0,0">Double</RadioButton>
+                </StackPanel>
+                
+                <Button Grid.Row="2" Grid.Column="0" Click="Clear_Click" Background="#FF7A4453" Foreground="White">C</Button>
+                <Button Grid.Row="2" Grid.Column="1" Click="R_Click" Background="#FF7A4453" Foreground="White">R</Button>
+                <Button Grid.Row="2" Grid.Column="2" Click="squareRoot_Click" Background="#FF7A4453" Foreground="#FFFDFDFD">√</Button>
+            </Grid>
+            <Grid x:Name="desingCalendar" Visibility="Hidden">
+                <Viewbox Stretch="Fill" StretchDirection="UpOnly">
+                    <Calendar x:Name="calendar"  SelectionMode="MultipleRange" FirstDayOfWeek="Monday" IsTodayHighlighted="True" Foreground="#FF850D0D">
+                        <Calendar.Background>
+                            <ImageBrush ImageSource="C:\Users\sidak\OneDrive\Рабочий стол\7.jpg" Opacity="0.2"/>
+                        </Calendar.Background>
+                        <Calendar.BlackoutDates>
+                            <CalendarDateRange Start="7/5/2020" End="7/7/2020" />
+                            <CalendarDateRange Start="3/21/2020" End="3/24/2020" />
+                        </Calendar.BlackoutDates>
+                    </Calendar>
+                </Viewbox>
+            </Grid>
+            <Grid x:Name="designConverter" Visibility="Hidden">
+                <StackPanel>
+                    <Grid Height="50">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" FontFamily="Palatino Linotype" Foreground="#FF7A4453" FontSize="20">Length Units Converter</TextBlock>
+                    </Grid>
+                    <Grid Height="150">
+                        <Line Width="300" Height="5" HorizontalAlignment="Center" VerticalAlignment="Top" Stroke="#FF7A4453" X1="10" X2="290" Y1="0" Y2="0"></Line>
+                        <TextBox x:Name="firstTextBox" Width="50" Height="30" HorizontalAlignment="Left" Margin="45,0,0,0" BorderBrush="#FF939393" SelectionBrush="#FF7A4453" Background="WhiteSmoke" Foreground="Black" 
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="10"></TextBox>
+                        <ComboBox x:Name="firstParam" Width="90" Height="30" Background="#FFFFFBFB" BorderBrush="White" FontSize="10" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="125,0,0,0">
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="Background" Value="Green" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsDropDownOpen" Value="True">
+                                            <Setter Property="Background" Value="Red" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
+                            <ComboBoxItem IsSelected="True">
+                                <TextBlock>Метр</TextBlock>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <TextBlock>Километр</TextBlock>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <TextBlock>Фут</TextBlock>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <TextBlock>Ярд</TextBlock>
+                            </ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox x:Name="secondParam" Width="90" Height="30" Background="#FFFFFBFB" BorderBrush="White" FontSize="10" HorizontalAlignment="Left" VerticalContentAlignment="Center"  Margin="240,0,0,0">
+                            <ComboBoxItem IsSelected="True">
+                                <TextBlock>Метр</TextBlock>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <TextBlock>Километр</TextBlock>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <TextBlock>Фут</TextBlock>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <TextBlock>Ярд</TextBlock>
+                            </ComboBoxItem>
+                        </ComboBox>
+                        <Button Width="100" Height="30" Margin="0,104,0,0" Background="#FF7A4453" BorderBrush="#FF7A4453" Foreground="White" FontFamily="Palatino Linotype" Click="convert_click">convert</Button>
+                    </Grid>
+                    <Grid Height="50">
+                        <Line Width="300" Height="5" HorizontalAlignment="Center" VerticalAlignment="Top" Stroke="#FF7A4453" X1="10" X2="290" Y1="0" Y2="0"></Line>
+                        <TextBlock TextAlignment="Center" FontFamily="Palatino Linotype" FontSize="20" Margin="0,10,0,0" Foreground="#FF7A4453">Result</TextBlock>
+                    </Grid>
+                    <Grid Height="100" Background="#FF7A4453">
+                        <TextBlock x:Name="convertedResult"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   FontFamily="Palatino Linotype" FontSize="15" Margin="0,0,0,0" Foreground="White"></TextBlock>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="designAboutApp" Visibility="Visible">
+                <Label x:Name="labelAbout" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Palatino Linotype" FontSize="20" Foreground="#FF571F33"></Label>
+                <TextBlock Foreground="#FF571F33" Opacity="0.5" Margin="0,325,0,10" FontSize="9" HorizontalAlignment="Center">The program was developed by Dana Sidakina. 3rd course. Information Systems.</TextBlock>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>
