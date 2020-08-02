@@ -9,11 +9,14 @@
     <Grid>
         <Grid Width="428"  HorizontalAlignment="Left">
             <Label Margin="40,10,0,0" Foreground="#FF701432" FontFamily="Constantia">Name</Label>
-            <TextBox x:Name="Name" Width="200" Height="30" VerticalAlignment="Top" Margin="40,10,0,0" TextAlignment="Justify" BorderThickness="1" BorderBrush="#FFAF687F"/>
+            <TextBox x:Name="Name" Width="200" Height="30" VerticalAlignment="Top" Margin="40,10,0,0" TextAlignment="Justify" BorderThickness="1" BorderBrush="#FFAF687F">
+            </TextBox>
             <Label Margin="40,50,0,0" Foreground="#FF701432" FontFamily="Constantia" >LastName</Label>
-            <TextBox x:Name="LastName" Width="200" Height="30" VerticalAlignment="Top" Margin="40,50,0,0" BorderBrush="#FFAF687F" />
+            <TextBox x:Name="LastName" Width="200" Height="30" VerticalAlignment="Top" Margin="40,50,0,0" BorderBrush="#FFAF687F">
+            </TextBox>
             <Label Margin="40,90,0,0" Foreground="#FF701432" FontFamily="Constantia" >FathersName</Label>
-            <TextBox x:Name="FathersName" Width="200" Height="30" VerticalAlignment="Top" Margin="40,90,0,0" BorderBrush="#FFAF687F" />
+            <TextBox x:Name="FathersName" Width="200" Height="30" VerticalAlignment="Top" Margin="40,90,0,0" BorderBrush="#FFAF687F" >
+            </TextBox>
             <Label  Margin="40,130,0,0" Foreground="#FF701432" FontFamily="Constantia">Position</Label>
             <ComboBox x:Name="Position" Width="200" Height="30" VerticalAlignment="Top" Margin="40,130,0,0" BorderBrush="#FFAF687F">
                 <ComboBoxItem IsSelected="True">Operator</ComboBoxItem>
@@ -32,14 +35,15 @@
             <Label  Margin="40,250,0,0" Foreground="#FF701432" FontFamily="Constantia">Married</Label>
             <RadioButton Margin="170,250,0,0" x:Name="Married" Background="#FFE27483" Foreground="#FF701432">Yes</RadioButton>
             <RadioButton Margin="210,250,0,0" x:Name="NotMarried" IsChecked="True" Background="#FFE27483" Foreground="#FF701432">No</RadioButton>
-            <Button Height="20" Width="50" Background="White" Foreground="Black" Click="Button_Click" Margin="191,278,187,52" FontFamily="Constantia" BorderBrush="#FFAF687F">Add</Button>
+            <Button Height="20" Width="50" Background="White" Foreground="Black" Click="insert_button_clicked" Margin="191,278,187,52" FontFamily="Constantia" BorderBrush="#FFAF687F">Add</Button>
         </Grid>
         <Grid x:Name="back_button" Width="428" HorizontalAlignment="Right" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Grid.ColumnSpan="2">
             <Label Margin="160,0,225,224" Foreground="#FF701432" FontFamily="Constantia" >Users</Label>
-            <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Height="218" VerticalAlignment="Top" Width="480"  AutoGenerateColumns="True" Margin="-62,23,0,0" FrozenColumnCount="1" CanUserResizeColumns="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" Background="White" BorderThickness="2" BorderBrush="#FFAF687F" AlternatingRowBackground="#FFE27483"/>
-            <Button x:Name="back_button1" Content="🠈" HorizontalAlignment="Left" VerticalAlignment="Top" Width="56" Margin="-30,280,0,0" Click="Back_button1_Click" Background="White" RenderTransformOrigin="-0.107,0.4" Height="20" BorderBrush="#FFAF687F"/>
-            <Button x:Name="forward_button" Content="🠊" HorizontalAlignment="Right" VerticalAlignment="Top" Width="47" Margin="0,280,68,0" Click="Forward_button_Click" Background="White" Height="20" BorderBrush="#FFAF687F" />
+            <DataGrid x:Name="dataGrid1"  HorizontalAlignment="Left" Height="218" VerticalAlignment="Top" Width="480"  AutoGenerateColumns="True" Margin="-62,23,0,0" FrozenColumnCount="1" CanUserResizeColumns="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" Background="White" BorderThickness="2" BorderBrush="#FFAF687F" AlternatingRowBackground="#FFE27483" ItemsSource="{Binding}"/>
+            <Button x:Name="delete_button" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="-30,280,0,0" Background="White" RenderTransformOrigin="-0.107,0.4" Height="20" BorderBrush="#FFAF687F" Click="delete_button_clicked"/>
+            <Button x:Name="serialize_button" Content="Download" VerticalAlignment="Top" Margin="300,280,54,0" Background="White" Height="20" BorderBrush="#FFAF687F" Click="serialize_button_clicked" RenderTransformOrigin="-0.05,0.467" />
+            <Button Content="Load" HorizontalAlignment="Left" Margin="184,280,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click" Foreground="Black" Background="White" BorderBrush="#FFAF687F"/>
         </Grid>
-        <Button x:Name="update_button" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="565,279,0,0" Click="Update_button_Click" Background="White" RenderTransformOrigin="0.227,0.5" FontFamily="Constantia" BorderBrush="#FFAF687F"/>
+        <Button x:Name="update_button" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="499,280,0,0" Click="update_button_Click" Background="White" RenderTransformOrigin="0.227,0.5" FontFamily="Constantia" BorderBrush="#FFAF687F"/>
     </Grid>
 </Window>

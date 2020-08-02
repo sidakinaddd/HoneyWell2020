@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="yes"?>
+<Users>
+  <User>
+    <Id>1</Id>
+    <Name>Dana</Name>
+    <LastName>Sidakina</LastName>
+    <Age>20</Age>
+    <FathersName>Talgatovna</FathersName>
+    <Position>Manager</Position>
+    <Gender>Female</Gender>
+    <Married>false</Married>
+  </User>
+</Users>

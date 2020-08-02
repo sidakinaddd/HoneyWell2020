@@ -15,16 +15,17 @@ namespace WpfApp4
     
     public partial class UserEntities : DbContext
     {
+        
         public UserEntities()
             : base("name=UserEntities")
         {
-        }
+        }  
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

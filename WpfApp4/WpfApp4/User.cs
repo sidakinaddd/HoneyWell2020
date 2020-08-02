@@ -11,16 +11,34 @@ namespace WpfApp4
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text.RegularExpressions;
+    using System.Xml.Serialization;
+
+    [Serializable]
+    [Table("User")]
     public partial class User
     {
+        [XmlElement("Id")]
         public int Id { get; set; }
+        [XmlElement("Name")]
         public string Name { get; set; }
+        [XmlElement("LastName")]
         public string LastName { get; set; }
+        [XmlElement("Age")]
         public int Age { get; set; }
+        [XmlElement("FathersName")]
         public string FathersName { get; set; }
+        [XmlElement("Position")]
         public string Position { get; set; }
+        [XmlElement("Gender")]
         public string Gender { get; set; }
+        [XmlElement("Married")]
         public bool Married { get; set; }
+    }
+    public partial class UserList
+    {
+        [XmlElement("User")]
+        public List<User> Users { get; set; }
     }
 }

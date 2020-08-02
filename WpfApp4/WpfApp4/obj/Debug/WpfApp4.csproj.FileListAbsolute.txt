@@ -19,3 +19,7 @@ c:\users\sidak\source\repos\WpfApp4\WpfApp4\obj\Debug\WpfApp4.csproj.CopyComplet
 c:\users\sidak\source\repos\WpfApp4\WpfApp4\obj\Debug\WpfApp4.exe
 c:\users\sidak\source\repos\WpfApp4\WpfApp4\obj\Debug\WpfApp4.pdb
 c:\users\sidak\source\repos\WpfApp4\WpfApp4\obj\Debug\WpfApp4_Content.g.cs
+C:\Users\sidak\source\repos\WpfApp4\WpfApp4\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\sidak\source\repos\WpfApp4\WpfApp4\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\sidak\source\repos\WpfApp4\WpfApp4\bin\Debug\EPPlus.dll
+C:\Users\sidak\source\repos\WpfApp4\WpfApp4\bin\Debug\EPPlus.xml

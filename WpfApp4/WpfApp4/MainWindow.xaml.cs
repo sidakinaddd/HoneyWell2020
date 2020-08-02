@@ -14,6 +14,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Data;
+using System.Text.RegularExpressions;
+using System.IO;
+using System.Xml.Serialization;
+
 namespace WpfApp4
 {
     /// <summary>
@@ -21,135 +25,180 @@ namespace WpfApp4
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         static string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=userstore;Trusted_Connection=True";
-        string sqlExpression = "";
-        int pageSize = 10;
-        int pageNumber = 0;
-        SqlDataAdapter dataAdp;
-        DataTable dt;
+ 
         SqlConnection connection = new SqlConnection(connectionString);
 
         public MainWindow()
         {
             
             InitializeComponent();
-            update_table();
-
+            show_table();
+         
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void show_table()
+        {
+            using (UserEntities db = new UserEntities())
+            {
+                var users = db.Users;
+
+                dataGrid1.ItemsSource = users.ToList();
+
+            }
+        }
+        private void insert_button_clicked(object sender, RoutedEventArgs e)
         {
             bool married = false;
             if (Married.IsChecked == true)
             {
                 married = true;
             }
-            if(Name.Text=="" || Name.Text.Any(char.IsDigit) || LastName.Text=="" || LastName.Text.Any(char.IsDigit) || FathersName.Text == "" || FathersName.Text.Any(char.IsDigit) || Age.Text.Any(char.IsLetter) || Age.Text == "")
+            if (!Regex.IsMatch(Name.Text, @"^[a-zA-Z]+$") || !Regex.IsMatch(LastName.Text, @"^[a-zA-Z]+$") || !Regex.IsMatch(FathersName.Text, @"^[a-zA-Z]+$") || !Regex.IsMatch(Age.Text,@"^[0-9]{2}$"))
             {
                 MessageBox.Show("Введите корректно ваши данные!");
             }
             else
             {
-                using (UserEntities db = new UserEntities())
+                try
                 {
-                    try
+                    using (UserEntities db = new UserEntities())
                     {
-                        User nuser = new User { Name = Name.Text, LastName = LastName.Text, Age = Convert.ToInt32(Age.Text), FathersName = FathersName.Text, Position = Position.Text, Gender = Gender.Text, Married = married };
-                        db.Users.Add(nuser);
+
+
+                        User new_user = new User();
+                        new_user.Name = Name.Text;
+                        new_user.LastName = LastName.Text;
+                        new_user.FathersName = FathersName.Text;
+                        new_user.Age = Convert.ToInt32(Age.Text);
+                        new_user.Position = Position.Text;
+                        new_user.Gender = Gender.Text;
+                        new_user.Married = married;
+                        db.Users.Add(new_user);
                         db.SaveChanges();
-                        update_table();
+                        show_table();
                         Name.Text = "";
                         LastName.Text = "";
                         FathersName.Text = "";
                         Age.Text = "";
                     }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                    }
-
+                }catch(Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
                 }
+               
             }
             
         }
 
-        public void update_table()
-        {
-            try
-            {
-                connection.Open();
-                sqlExpression = "select * from Users";
-                SqlCommand createCommand = new SqlCommand(sqlExpression, connection);
-                createCommand.ExecuteNonQuery();
-
-                dataAdp = new SqlDataAdapter(createCommand);
-                dt = new DataTable("Users");
-                dataAdp.Fill(dt);
-                dataGrid1.ItemsSource = dt.DefaultView;
-                dataAdp.Update(dt);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
         
-
-        private void Forward_button_Click(object sender, RoutedEventArgs e)
+        private void update_button_Click(object sender, RoutedEventArgs e)
         {
-            
-            if (dt.Rows.Count < pageSize) return;
-
-            pageNumber++;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using(UserEntities db = new UserEntities())
             {
-                dataAdp = new SqlDataAdapter(GetSql(), connection);
+                try
+                {
+                    User selected_user = (User)dataGrid1.SelectedItem;
+                    int selected_user_id = selected_user.Id;
+                    User updating_user = (from u in db.Users where u.Id == selected_user_id select u).First();
+                    updating_user.Name = selected_user.Name;
+                    updating_user.LastName = selected_user.LastName;
+                    updating_user.FathersName = selected_user.FathersName;
+                    updating_user.Age = selected_user.Age;
+                    updating_user.Position = selected_user.Position;
+                    updating_user.Gender = selected_user.Gender;
+                    updating_user.Married = selected_user.Married;
+                    db.SaveChanges();
+                    MessageBox.Show($"User {selected_user.Name} was updated");
+                    show_table();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+               
+            }
+           
+        }
 
-                dt.Rows.Clear();
+        private void delete_button_clicked(object sender, RoutedEventArgs e)
+        {
+            using (UserEntities db = new UserEntities())
+            {
+                try
+                {
+                    User selected_user = (User)dataGrid1.SelectedItem;
+                    int selected_user_id = selected_user.Id;
+                    User removing_user = (from u in db.Users where u.Id == selected_user_id select u).First();
+                    MessageBox.Show($"User {selected_user.Name} was deleted");
+                    db.Users.Remove(removing_user);
+                    db.SaveChanges();
+                    show_table();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
 
-                dataAdp.Fill(dt);
             }
         }
-
-        private void Back_button1_Click(object sender, RoutedEventArgs e)
+        private void deserealization_button_clicked()
         {
-            if (pageNumber == 0) return;
-            pageNumber--;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                dataAdp = new SqlDataAdapter(GetSql(), connection);
-
-                dt.Rows.Clear();
-
-                dataAdp.Fill(dt);
-            }
-        }
-        private string GetSql()
-        {
-            return "SELECT * FROM Users ORDER BY Id OFFSET ((" + pageNumber + ") * " + pageSize + ") " +
-                "ROWS FETCH NEXT " + pageSize + "ROWS ONLY";
-        }
-
-        private void Update_button_Click(object sender, RoutedEventArgs e)
-        {
+            XmlSerializer serializer = new XmlSerializer(typeof(UserList));
 
             try
             {
-                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdp);
-                dataAdp.Update(dt);
-                dt.Clear();
-                dataAdp.Fill(dt);
-            }
-            catch(SqlException ex)
+                using (FileStream fileStream = new FileStream("users.xml", FileMode.Open))
+                {
+                    UserList result = (UserList)serializer.Deserialize(fileStream);
+                    MessageBox.Show(result.Users.Count.ToString());
+                }
+
+            }catch(Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
 
+
+
+        }
+
+        private void serialize_button_clicked(object sender, RoutedEventArgs e)
+        {
+            string sql = "SELECT * FROM Users";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlDataAdapter adapter = new SqlDataAdapter(sql, connection);
+                    DataSet ds = new DataSet("Users");
+                    DataTable dt = new DataTable("User");
+                    ds.Tables.Add(dt);
+                    adapter.Fill(ds.Tables["User"]);
+                    ds.WriteXml("users_test.xml");
+                    dataGrid1.ItemsSource = "";
+                    MessageBox.Show("Written");
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                
+                
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DataSet dataSet = new DataSet();
+            dataSet.ReadXml(@"C:\Users\sidak\source\repos\WpfApp4\WpfApp4\bin\Debug\users_test.xml");
+            dataGrid1.ItemsSource = dataSet.Tables[0].DefaultView;
         }
     }
     
